@@ -2,183 +2,111 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyseur Philosophique - Abstract Machine</title>
+    <title>Inventaire des Contrôles UI</title>
     <style>
-        /* Styles inspirés du doc "Codes HTML c2phi.fr" */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: "Segoe UI", "Roboto", sans-serif;
-            background: #0f1117; /* Fond sombre du document */
+            background-color: #0f1117;
             color: #e0e0e0;
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
         }
-
-        /* Console de contrôle latérale */
-        #console {
-            background: #161926;
-            border-right: 1px solid #2e3248;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
-
-        h2 { 
-            font-size: 0.85rem; 
-            color: #5a8fe0; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 10px;
+        h1 {
+            color: #5a8fe0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             border-bottom: 1px solid #2e3248;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
-
-        .control-unit {
-            background: #1c2130;
-            padding: 15px;
-            border-radius: 4px;
+        /* Alignement sur une même ligne */
+        .control-line {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 25px;
+            background: #161926;
+            padding: 30px;
+            border-radius: 8px;
             border: 1px solid #2e3248;
         }
-
-        label { display: block; font-size: 0.7rem; color: #888; margin-bottom: 10px; text-transform: uppercase; }
-
-        input[type="range"] { width: 100%; accent-color: #5a8fe0; cursor: pointer; }
-        
-        select {
-            width: 100%;
-            background: #0f1117;
-            color: #5a8fe0;
-            border: 1px solid #5a8fe0;
-            padding: 8px;
-            font-size: 0.8rem;
-        }
-
-        .toggle-switch {
+        .control-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
-            font-size: 0.8rem;
-            cursor: pointer;
         }
-
-        button {
-            background: #5a8fe0;
-            color: white;
-            border: none;
-            padding: 12px;
-            cursor: pointer;
-            font-weight: bold;
+        label {
+            font-size: 0.65rem;
+            color: #888;
             text-transform: uppercase;
-            font-size: 0.75rem;
         }
-
-        /* Zone d'affichage centrale */
-        #viewport {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle, #1a1d29 0%, #0f1117 100%);
-            perspective: 1000px;
+        input, select, button, textarea {
+            accent-color: #5a8fe0; /* Couleur des curseurs/checkboxes */
         }
-
-        #text-display {
-            max-width: 700px;
-            font-size: 1.8rem;
-            line-height: 1.5;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Effets optiques */
-        .glow { text-shadow: 0 0 15px #5a8fe0; color: #fff; }
-        .sepia { filter: sepia(1) hue-rotate(160deg); }
-        .pixel { font-family: 'Courier New', monospace; letter-spacing: -1px; }
     </style>
 </head>
 <body>
-
-<div id="console">
-    <h2>Vision Analytique</h2>
+    <h1>Console d'Éléments de Contrôle (UI Widgets)</h1>
     
-    <div class="control-unit">
-        <label>Opacité (Désuetude)</label>
-        <input type="range" id="opacity-slider" min="5" max="100" value="100">
+    <div class="control-line">
+        <div class="control-item">
+            <label>Bouton</label>
+            <button type="button">Action</button>
+        </div>
+
+        <div class="control-item">
+            <label>Champ Texte</label>
+            <input type="text" placeholder="Entrée..." style="width: 100px;">
+        </div>
+
+        <div class="control-item">
+            <label>Curseur</label>
+            <input type="range">
+        </div>
+
+        <div class="control-item">
+            <label>Checkbox</label>
+            <input type="checkbox">
+        </div>
+
+        <div class="control-item">
+            <label>Radio</label>
+            <input type="radio" checked>
+        </div>
+
+        <div class="control-item">
+            <label>Menu</label>
+            <select>
+                <option>Option 1</option>
+                <option>Option 2</option>
+            </select>
+        </div>
+
+        <div class="control-item">
+            <label>Couleur</label>
+            <input type="color" value="#5a8fe0">
+        </div>
+
+        <div class="control-item">
+            <label>Date</label>
+            <input type="date">
+        </div>
+
+        <div class="control-item">
+            <label>Nombre</label>
+            <input type="number" style="width: 60px;">
+        </div>
+
+        <div class="control-item">
+            <label>Fichier</label>
+            <input type="file" style="width: 150px;">
+        </div>
+
+        <div class="control-item">
+            <label>Zone Texte</label>
+            <textarea rows="1" style="width: 80px;"></textarea>
+        </div>
     </div>
-
-    <div class="control-unit">
-        <label>Filtre Optique</label>
-        <select id="filter-select">
-            <option value="">Standard</option>
-            <option value="glow">Lumière de la Raison</option>
-            <option value="sepia">Archive Temporelle</option>
-            <option value="pixel">Déconstruction Digitale</option>
-        </select>
-    </div>
-
-    <div class="control-unit">
-        <label class="toggle-switch">
-            <input type="checkbox" id="bold-toggle"> 
-            Accentuation de l'Être
-        </label>
-    </div>
-
-    <div class="control-unit">
-        <label>Angle de Parallaxe</label>
-        <input type="range" id="skew-slider" min="-25" max="25" value="0">
-    </div>
-
-    <button id="cycle-btn">Séquence Suivante</button>
-</div>
-
-<div id="viewport">
-    <div id="text-display">
-        « La conscience est une force de choix qui intervient entre le passé et l'avenir. »
-    </div>
-</div>
-
-<script>
-    const display = document.getElementById('text-display');
-    const fragments = [
-        "« L'intelligence se définit par une incompréhension naturelle de la vie. »",
-        "« L'avenir n'est pas ce qui va arriver, mais ce que nous allons faire. »",
-        "« Le temps est invention ou il n'est rien du tout. »",
-        "« L'intuition est la sympathie par laquelle on se transporte à l'intérieur d'un objet. »"
-    ];
-    let currentIdx = 0;
-
-    document.getElementById('opacity-slider').addEventListener('input', (e) => {
-        display.style.opacity = e.target.value / 100;
-    });
-
-    document.getElementById('filter-select').addEventListener('change', (e) => {
-        display.className = e.target.value;
-    });
-
-    document.getElementById('bold-toggle').addEventListener('change', (e) => {
-        display.style.fontWeight = e.target.checked ? 'bold' : 'normal';
-    });
-
-    document.getElementById('skew-slider').addEventListener('input', (e) => {
-        display.style.transform = `rotateY(${e.target.value}deg) rotateX(${e.target.value/2}deg)`;
-    });
-
-    document.getElementById('cycle-btn').addEventListener('click', () => {
-        currentIdx = (currentIdx + 1) % fragments.length;
-        display.style.transform = 'scale(0.8)';
-        display.style.opacity = '0';
-        setTimeout(() => {
-            display.innerText = fragments[currentIdx];
-            display.style.transform = 'scale(1)';
-            display.style.opacity = document.getElementById('opacity-slider').value / 100;
-        }, 400);
-    });
-</script>
-
 </body>
 </html>
