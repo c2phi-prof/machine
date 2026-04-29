@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Abstract Machine : Text Analyzer</title>
+    <style>
+        /* Inspiré du style sombre de Codes HTML c2phi.fr */
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: #0f1117;
+            color: #e0e0e0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Zone centrale du texte */
+        #text-display {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .text-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        /* Panneau de commandes */
+        #control-panel {
+            background: #161926cc;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #2e3248;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: crosshair;
+        }
+
+        /* Effets de texte dynamiques */
+        .highlight { background-color: rgba(90, 143, 224, 0.3); }
+        .ghost { opacity: 0.3; filter: blur(2px); }
+    </style>
+</head>
+<body>
+
+<div id="text-display">
+    <div class="text-content" id="main-text">
+        « La conscience que nous en avons diminue et disparaît. Quels sont les moments où notre conscience atteint le plus de vivacité ? Ne sont-ce pas les moments de crise intérieure, où nous hésitons entre deux ou plusieurs partis à prendre ? » 
+    </div>
+</div>
+
+<div id="control-panel">
+    <div class="control-group">
+        <label>Vivacité / Automatisme</label>
+        <input type="range" id="vivacity" min="0" max="100" value="100">
+    </div>
+
+    <div class="control-group">
+        <label>Décomposition Logique</label>
+        <input type="range" id="spacing" min="0" max="50" value="0">
+    </div>
+
+    <div class="control-group">
+        <label>Profondeur d'Analyse</label>
+        <input type="range" id="contrast" min="0" max="200" value="100">
+    </div>
+
+    <div class="control-group" style="justify-content: flex-end;">
+        <button onclick="resetMachine()">Réinitialiser la Machine</button>
+    </div>
+</div>
+
+<script>
+    const textElement = document.getElementById('main-text');
+    
+    // Logique des commandes
+    document.getElementById('vivacity').addEventListener('input', (e) => {
+        const val = e.target.value;
+        // Simule l'idée de Bergson : plus c'est automatique, moins il y a de conscience 
+        textElement.style.opacity = val / 100;
+        textElement.style.filter = `blur(${(100 - val) / 10}px)`;
+    });
+
+    document.getElementById('spacing').addEventListener('input', (e) => {
+        const val = e.target.value;
+        textElement.style.letterSpacing = `${val / 5}px`;
+        textElement.style.wordSpacing = `${val}px`;
+    });
+
+    document.getElementById('contrast').addEventListener('input', (e) => {
+        const val = e.target.value;
+        // Change la perception du texte (fond vs forme)
+        document.getElementById('text-display').style.backgroundColor = `rgba(90, 143, 224, ${val / 1000})`;
+        textElement.style.color = `hsl(0, 0%, ${val}%)`;
+    });
+
+    function resetMachine() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
